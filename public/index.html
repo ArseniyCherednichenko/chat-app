@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <!-- Username Modal -->
+        <div class="modal fade" id="usernameModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Join Chat</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="usernameInput" class="form-label">Enter your username:</label>
+                            <input type="text" class="form-control" id="usernameInput" placeholder="Your username" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="joinBtn">Join Chat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Interface -->
+        <div class="row h-100" id="chatInterface" style="display: none;">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-none d-md-block sidebar">
+                <div class="sidebar-header">
+                    <h5><i class="fas fa-comments"></i> Chat Room</h5>
+                </div>
+                <div class="user-list">
+                    <h6><i class="fas fa-users"></i> Online Users (<span id="userCount">0</span>)</h6>
+                    <ul id="usersList" class="list-unstyled"></ul>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="col-md-9 col-lg-10 chat-container">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <h5>
+                        <i class="fas fa-comments"></i> 
+                        Real-Time Chat
+                        <button class="btn btn-sm btn-outline-primary d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileUserList">
+                            <i class="fas fa-users"></i>
+                        </button>
+                    </h5>
+                    
+                    <!-- Mobile User List -->
+                    <div class="collapse d-md-none" id="mobileUserList">
+                        <div class="card card-body mb-2">
+                            <h6><i class="fas fa-users"></i> Online Users (<span id="mobileUserCount">0</span>)</h6>
+                            <ul id="mobileUsersList" class="list-unstyled mb-0"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="messages-container">
+                    <div id="messagesArea"></div>
+                    <div id="typingIndicator" class="typing-indicator"></div>
+                </div>
+
+                <!-- Message Input -->
+                <div class="message-input-container">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="messageInput" placeholder="Type your message..." maxlength="500">
+                        <button class="btn btn-primary" type="button" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emoji Reaction Modal -->
+    <div class="modal fade" id="emojiModal" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Reaction</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="emoji-grid">
+                        <button class="btn emoji-btn" data-emoji="👍">👍</button>
+                        <button class="btn emoji-btn" data-emoji="😂">😂</button>
+                        <button class="btn emoji-btn" data-emoji="❤️">❤️</button>
+                        <button class="btn emoji-btn" data-emoji="😮">😮</button>
+                        <button class="btn emoji-btn" data-emoji="😢">😢</button>
+                        <button class="btn emoji-btn" data-emoji="😡">😡</button>
+                        <button class="btn emoji-btn" data-emoji="🎉">🎉</button>
+                        <button class="btn emoji-btn" data-emoji="🔥">🔥</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
